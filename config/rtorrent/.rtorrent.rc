@@ -2,6 +2,8 @@
 # ~/.rtorrent.rc and enable/modify the options as needed. Remember to
 # uncomment the options you wish to enable.
 
+network.http.ssl_verify_peer.set=0
+
 # Maximum and minimum number of peers to connect to per torrent.
 #min_peers = 40
 max_peers = 64
