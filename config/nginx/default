@@ -12,7 +12,7 @@ server {
 	allow 127.0.0.1;
 	deny all;
 	auth_basic "Login Required";
-	auth_basic_user_file /usr/share/nginx/html/rutorrent/.htpasswd;
+	auth_basic_user_file /htpasswd/.htpasswd;
 
 	location /RPC2 {
 		include scgi_params;

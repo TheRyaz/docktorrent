@@ -1,5 +1,7 @@
 # docktorrent
 
+Forked from [kfei/docktorrent](https://github.com/kfei/docktorrent)
+
 Using [Docker](https://www.docker.com/),
 [rTorrent](http://rakshasa.github.io/rtorrent/) and
 [ruTorrent](https://github.com/Novik/ruTorrent) to run a full-featured
@@ -18,9 +20,15 @@ BitTorrent box.
 
 ## Quick Start
 
+You'll need to generate an htpasswd file to use this image. You can do so with a command like this:  
+`docker run --rm -ti crosbymichael/htpasswd <username>`
+
+Add the output to an .htpasswd file for each user you want to have access.
+
+
 Clone this repository and build the image locally:
 ```bash
-git clone https://github.com/kfei/docktorrent
+git clone https://github.com/TheRyaz/docktorrent
 cd docktorrent
 docker build -t docktorrent .
 ```
@@ -28,7 +36,7 @@ docker build -t docktorrent .
 The building process may take some time. You can just pull the latest image
 from Docker Hub:
 ```bash
-docker pull kfei/docktorrent
+docker pull theryaz/docktorrent
 ```
 
 After the image is built or pulled, run the docktorrent container, for example:
@@ -37,8 +45,9 @@ docker run -it \
     -p 80:80 -p 45566:45566 -p 9527:9527/udp \
     --dns 8.8.8.8 \
     -v /data-store:/rtorrent \
+		-v `pwd`/htpasswd:/htpasswd \
     -e UPLOAD_RATE=1024 \
-    kfei/docktorrent    # Or just `docktorrent` for locally built image
+    theryaz/docktorrent    # Or just `docktorrent` for locally built image
 ```
 Note that:
   - The exposed ports are required for ruTorrent web interface, rTorrent
@@ -52,8 +61,9 @@ Note that:
   - Override the `upload_rate` setting of rTorrent to 1024KB. Check the full list of
     available [runtime configs](#runtime-configs).
 
+
 If the container starts without errors, visit `http://127.0.0.1` through any web
-browser, log in to with the default username/password: `docktorrent/p@ssw0rd`.
+browser.
 
 Happy seeding!
 
@@ -88,7 +98,7 @@ your OS platform.
 ## Feedback
 
 Bug reports and feature suggestions are both welcome. Feel free to use the
-[issue tracker](https://github.com/kfei/docktorrent/issues).
+[issue tracker](https://github.com/theryaz/docktorrent/issues).
 
 ## Screenshots
 

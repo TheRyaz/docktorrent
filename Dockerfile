@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER kfei <kfei@kfei.net>
+MAINTAINER theryaz <theryaz@theryaz.net>
 
 ENV VER_LIBTORRENT 0.13.4
 ENV VER_RTORRENT 0.9.4
@@ -21,7 +21,8 @@ RUN build_deps="automake build-essential ca-certificates libc-ares-dev libcppuni
     cd .. && \
     rm -rf curl-* && \
     ldconfig && \
-    svn --trust-server-cert checkout https://svn.code.sf.net/p/xmlrpc-c/code/stable/ xmlrpc-c && \
+    #svn --trust-server-cert checkout https://svn.code.sf.net/p/xmlrpc-c/code/stable/ xmlrpc-c && \
+    svn --trust-server-cert checkout https://svn.code.sf.net/p/xmlrpc-c/code/super_stable/ xmlrpc-c && \
     cd xmlrpc-c && \
     ./configure --enable-libxml2-backend --disable-abyss-server --disable-cgi-server && \
     make && \
@@ -81,7 +82,7 @@ RUN echo "deb http://www.deb-multimedia.org jessie main" >> /etc/apt/sources.lis
     ffmpeg
 
 # IMPORTANT: Change the default login/password of ruTorrent before build
-RUN htpasswd -cb /usr/share/nginx/html/rutorrent/.htpasswd docktorrent p@ssw0rd
+# RUN htpasswd -cb /usr/share/nginx/html/rutorrent/.htpasswd docktorrent p@ssw0rd
 
 # Copy config files
 COPY config/nginx/default /etc/nginx/sites-available/default
@@ -101,7 +102,7 @@ ENTRYPOINT ["/usr/local/bin/docktorrent"]
 EXPOSE 80 9527 45566
 
 # Declare volumes
-VOLUME ["/rtorrent", "/var/log"]
+VOLUME ["/rtorrent", "/htpasswd", "/var/log"]
 
 # This should be removed in the latest version of Docker
 ENV HOME /root
