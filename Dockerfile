@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER theryaz <theryaz@theryaz.net>
+MAINTAINER theryaz <ryan.lawson437@gmail.com>
 
 ENV VER_LIBTORRENT 0.13.4
 ENV VER_RTORRENT 0.9.4
